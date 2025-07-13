@@ -2,6 +2,7 @@ import './App.css'
 import Body from "./components/Body.jsx";
 import Navigation from "./components/Navigation.jsx";
 import {useState} from "react";
+import {ShmitterContext} from "./utils/context.js";
 
 function App() {
     const [user, setUser] = useState({
@@ -18,13 +19,14 @@ function App() {
         setUser(prevState => ({...prevState, avatar: url || prevState.avatar}));
     } // если вычисляем стейт на основе предыдущего, то используется такая схема
 
-  return (
-    <div className={'app'}>
-        <Navigation changeAvatar = {changeAvatar} user={user}/>
-        <Body changeAvatar = {changeAvatar} user={user} stats={stats}/>
-    </div>
-
-  )
+    return (
+        <div className={'app'}>
+            <ShmitterContext value={{user, stats, changeAvatar}}>
+                <Navigation/>
+                <Body/>
+            </ShmitterContext>
+        </div>
+    )
 }
-
+// smittercontext компонент с обяз атрибутом value
 export default App
