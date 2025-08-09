@@ -1,18 +1,45 @@
-import React, {useContext} from 'react';
 import Avatar from "./Avatar.jsx";
-import {ShmitterContext} from "../utils/context.js";
+import {useDispatch, useSelector} from "react-redux";
+import {changeFollowers, changeFollowing} from "../actions/userAction.js";
 
 const Stats = () => {
-    const {user, stats} = useContext(ShmitterContext);
+    const {followers, following} = useSelector(state => state.stats);
+    const {name} = useSelector(state => state.user);
+    const dispatch = useDispatch();
     return (
-        <div>
-            <div className={'user-stats'}>
-                <Avatar />
-                {user.name}
+
+        <div className={'user-stats'}>
+            <div>
+                <Avatar/>
+                {name}
             </div>
             <div className={'stats'}>
-                <div>Followers: {stats.followers} </div>
-                <div>Following: {stats.following}</div>
+                <div
+                    onClick ={() => {
+                    const countFollower = followers + 1;
+                    dispatch(changeFollowers(countFollower));
+                }}
+                onContextMenu={e =>{
+                    e.preventDefault()
+                    const countFollower = followers - 1;
+                    if (countFollower >= 0) {
+                    dispatch(changeFollowers(countFollower));
+                    }}}
+                >
+                    Followers: {followers}
+                </div>
+                <div
+                    onClick ={() => {
+                        const countFollowing = following + 1;
+                        dispatch(changeFollowing(countFollowing));
+                    }}
+                    onContextMenu={e =>{
+                        e.preventDefault()
+                        const countFollowing = following - 1;
+                        if (countFollowing >= 0) {
+                            dispatch(changeFollowing(countFollowing));
+                        }}}
+                >Following: {following}</div>
             </div>
         </div>
     );

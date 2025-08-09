@@ -1,4 +1,3 @@
-import React from 'react';
 import Stats from "./Stats.jsx";
 
 const Sidebar = () => {
@@ -8,5 +7,6 @@ const Sidebar = () => {
         </div>
     );
 };
+
 
 export default Sidebar;
