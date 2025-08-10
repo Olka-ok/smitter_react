@@ -1,13 +1,13 @@
 import Avatar from "./Avatar.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {changeFollowers, changeFollowing} from "../actions/userAction.js";
+import {changeStats} from "../actions/statsAction.js";
 
 const Stats = () => {
     const {followers, following} = useSelector(state => state.stats);
     const {name} = useSelector(state => state.user);
     const dispatch = useDispatch();
-    return (
 
+    return (
         <div className={'user-stats'}>
             <div>
                 <Avatar/>
@@ -15,30 +15,18 @@ const Stats = () => {
             </div>
             <div className={'stats'}>
                 <div
-                    onClick ={() => {
-                    const countFollower = followers + 1;
-                    dispatch(changeFollowers(countFollower));
-                }}
-                onContextMenu={e =>{
-                    e.preventDefault()
-                    const countFollower = followers - 1;
-                    if (countFollower >= 0) {
-                    dispatch(changeFollowers(countFollower));
-                    }}}
-                >
-                    Followers: {followers}
-                </div>
-                <div
-                    onClick ={() => {
-                        const countFollowing = following + 1;
-                        dispatch(changeFollowing(countFollowing));
+                    onClick={() => dispatch(changeStats('followers', 1))}
+                    onContextMenu={(e) => {
+                        e.preventDefault();
+                        dispatch(changeStats('followers', -1));
                     }}
-                    onContextMenu={e =>{
-                        e.preventDefault()
-                        const countFollowing = following - 1;
-                        if (countFollowing >= 0) {
-                            dispatch(changeFollowing(countFollowing));
-                        }}}
+                >Followers: {followers}</div>
+                <div
+                    onClick={() => dispatch(changeStats('following', 1))}
+                    onContextMenu={(e) => {
+                        e.preventDefault();
+                        dispatch(changeStats('following', -1));
+                    }}
                 >Following: {following}</div>
             </div>
         </div>

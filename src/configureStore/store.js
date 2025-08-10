@@ -1,5 +1,5 @@
 import {legacy_createStore as createStore} from "redux";
-import {smitterReducer} from "../reducers/smitterReducer.js";
+import {rootReducer} from "../reducers/rootReducer.js";
 const initialState = {
     user: {
         name:'Monster',
@@ -10,4 +10,4 @@ const initialState = {
         following: 0
     }
 }
-export const store = createStore(smitterReducer, initialState)
+export const store = createStore(rootReducer, initialState)
